@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CV Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>CV Generator</h1>
+
+  <form id="cv-form">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" required>
+
+    <label for="phone">Phone</label>
+    <input type="text" id="phone" required>
+
+    <label for="summary">Professional Summary</label>
+    <textarea id="summary" rows="4"></textarea>
+
+    <label for="experience">Work Experience</label>
+    <textarea id="experience" rows="4"></textarea>
+
+    <label for="education">Education</label>
+    <textarea id="education" rows="4"></textarea>
+
+    <label for="skills">Skills (comma-separated)</label>
+    <input type="text" id="skills">
+
+    <button type="button" onclick="generateCV()">Generate CV</button>
+  </form>
+
+  <div class="cv-output" id="cv-output" style="display:none;">
+    <h2 id="cv-name"></h2>
+    <p><strong>Email:</strong> <span id="cv-email"></span></p>
+    <p><strong>Phone:</strong> <span id="cv-phone"></span></p>
+
+    <div class="section">
+      <h3>Professional Summary</h3>
+      <p id="cv-summary"></p>
+    </div>
+
+    <div class="section">
+      <h3>Work Experience</h3>
+      <p id="cv-experience"></p>
+    </div>
+
+    <div class="section">
+      <h3>Education</h3>
+      <p id="cv-education"></p>
+    </div>
+
+    <div class="section">
+      <h3>Skills</h3>
+      <ul id="cv-skills"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
