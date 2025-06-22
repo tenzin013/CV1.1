@@ -32,9 +32,10 @@
     <input type="text" id="skills">
 
     <button type="button" onclick="generateCV()">Generate CV</button>
+    <button type="button" onclick="downloadPDF()">Download PDF</button>
   </form>
 
-  <div class="cv-output" id="cv-output" style="display:none;">
+  <div class="cv-output" id="cv-output" style="display:none; margin-top: 30px;">
     <h2 id="cv-name"></h2>
     <p><strong>Email:</strong> <span id="cv-email"></span></p>
     <p><strong>Phone:</strong> <span id="cv-phone"></span></p>
@@ -60,6 +61,48 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- html2pdf.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Script Section -->
+  <script>
+    function generateCV() {
+      document.getElementById("cv-output").style.display = "block";
+
+      document.getElementById("cv-name").textContent = document.getElementById("name").value;
+      document.getElementById("cv-email").textContent = document.getElementById("email").value;
+      document.getElementById("cv-phone").textContent = document.getElementById("phone").value;
+      document.getElementById("cv-summary").textContent = document.getElementById("summary").value;
+      document.getElementById("cv-experience").textContent = document.getElementById("experience").value;
+      document.getElementById("cv-education").textContent = document.getElementById("education").value;
+
+      const skills = document.getElementById("skills").value.split(",");
+      const skillList = document.getElementById("cv-skills");
+      skillList.innerHTML = "";
+      skills.forEach(skill => {
+        if (skill.trim()) {
+          const li = document.createElement("li");
+          li.textContent = skill.trim();
+          skillList.appendChild(li);
+        }
+      });
+
+      // Scroll to the output
+      document.getElementById("cv-output").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById("cv-output");
+      const opt = {
+        margin:       0.5,
+        filename:     'Generated_CV.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+
 </body>
 </html>
